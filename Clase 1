@@ -1,0 +1,38 @@
+doble x  = x+x
+
+suma x y  = x+y
+norma x y = sqrt (x^2 + y^2)
+funConstante x = 10
+respuestAtodo = 41
+
+unSiCero x|x == 0 = 1
+unSicero x|x /= 0 = 0
+
+--Es positivo de la manera mas larga
+esPositivo1 x | x > 0 = "Verdaderos (Es positivo)"
+              | x == 0 = "Falso es Neutro"
+              | x < 0 = "Falso (Es negativo)"
+
+
+--Es positivo de la manera mas corta              
+esPositivo x = x > 0
+
+-- Logica i "&&" funcion "y"
+y1 a b | a==True && b==True = True
+      | otherwise = False
+--Otra forma
+y2 a b | a && b = True
+      | otherwise = False
+--Otra forma
+y3 a b = a && b
+--Otra forma
+y4 True x = x
+y4 False x = False
+--Otra forma sin &&
+y True False = False
+y True True = True
+y False False = False
+y False True = False
+
+--NOTA O es ||
+--NOTA ~ ES not
