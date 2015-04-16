@@ -1,0 +1,17 @@
+-- puede ser a y b o x e y (no importa)
+crearPar :: a -> b -> (a,b)
+crearPar x y = (x,y)
+
+--invertir :: (a,b) -> (b,a)
+invertir :: (a,b) -> (b,a)
+invertir x = (snd x, fst x)
+
+
+--distancia :: (Float,Float) -> (Float,Float) -> Float
+distancia :: (Float,Float) -> (Float,Float) -> Float
+distancia x y = sqrt((fst(x)-fst(y))^2 + (snd(x)-snd(y))^2)
+
+--despues del intervalo
+--suma (restar 2 (amigos Juan)) 4
+--restar x y = x - y
+--suma x y = x + y
