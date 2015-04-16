@@ -1,6 +1,15 @@
+--Clase 1
 -- Programar la funcion esPitagorica que tome tres parametros a b c y diga si existe un triangulo rectangulo donde a y b sean las medidas de los catetos y c la de la hipotenusa
-
 
 -- esPitagorica a b c = abs (a^2 + b^2 - c^2) < 0.000001 && a>0 && b>0 && c>0
 
 esPitagorica a b c = a^2 + b^2 == c^2 && a>0 && b>0 && c>0
+
+
+--Clase 2
+--Implementar la funcion
+--pendiente:: (Float,Float) -> (Float,Float) -> Float
+--que toma dos puntos y calcula la pendiente de la recta que pasa por esos puntos.
+
+pendiente:: (Float,Float) -> (Float,Float) -> Float
+pendiente a b = (snd(a)-snd(b)) / (fst(a)-fst(b))
