@@ -1,0 +1,41 @@
+--Calcula a^n
+potencia ::  Float -> Integer -> Float
+potencia a n | n==0 = 1
+potencia a n | n>0  = (potencia a (n-1)) * a
+
+
+--Repite [a,a,...] n veces
+repetir ::  Integer -> Integer -> [Integer]
+repetir a n | n==0 = []
+repetir a n | n>0  = a:(repetir a (n-1))
+
+
+--Division de a por d
+division  ::  Integer -> Integer -> (Integer,Integer)
+-- si a<d el cociente es 0 y el residuo igual a "a"
+division a d | a < d = (0, a)
+division a d | otherwise = (fst (division (a-d) d) + 1,snd (division (a-d) d))
+--2/3 (0,2)
+--5/3 (1,2)
+--8/3 (2,2)
+
+--0/8 (0,0)
+--8/8 (1,0)
+
+--OTRA FORMA
+division2  ::  Integer -> Integer -> (Integer,Integer)
+division2 a d | a < d = (0, a)
+division2 a d | otherwise = (fst qr' + 1,snd qr') 
+		where qr' = division2 (a-d) d
+
+--------------------------------------------------------
+divParcial ::  Integer -> Integer -> [Integer]
+divParcial n m | m==1 = [1]
+divParcial n m | mod n m == 0 = m:divParcial n (m-1)
+divParcial n m | otherwise = divParcial n (m-1)
+
+divisores  ::  Integer  -> [Integer]
+divisores n = divParcial n n
+
+esPrimo  ::  Integer -> Bool
+esPrimo n = length (divisores n) == 2
