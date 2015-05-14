@@ -16,3 +16,10 @@ pendiente a b = (snd(a)-snd(b)) / (fst(a)-fst(b))
 --Suma de impares de 1 hasta b^2 < n
 sumaImparesCuadradosMenoresA:: Float -> Integer
 sumaImparesCuadradosMenoresA n | n>0 = sum [1,3..truncate (sqrt n)]
+
+
+--Clase 4
+--calcula el producto interno entre dos listas del mismo tamaño, pensadas como vectores en R^n
+prodInterno :: [Float] -> [Float] -> Float
+prodInterno a b | length a == 0 && length b == 0 = 0
+prodInterno a b | otherwise = head a * head b + prodInterno (tail a) (tail b)
