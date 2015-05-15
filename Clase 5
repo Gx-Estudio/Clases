@@ -1,0 +1,59 @@
+--NOTA
+--abs a = |a| 
+-- / divide con decimales
+-- div divide y toma el maximo entero
+
+
+--Hallar el mcd de a y b
+mcd ::  Integer  -> Integer  -> Integer
+mcd a b | b==0 = abs a
+--No es necesario
+--mcd a b | mod a b == 1 || mod b a == 1 =  1
+mcd a b | otherwise = mcd b (mod a b)
+
+
+--Ver si a pertenece a la lista [b]
+pertenece :: Integer -> [Integer] -> Bool
+pertenece a b | b==[] = False
+pertenece a b | a == head b = True
+pertenece a b | otherwise = pertenece a (tail b)
+
+
+--Ver si la lista tiene elementos repetidos
+hayRepetidos :: [Integer] -> Bool
+hayRepetidos a | a==[] = False
+hayRepetidos a | pertenece (head a) (tail a)==True = True
+hayRepetidos a | otherwise = hayRepetidos (tail a)
+--Otraforma
+hayRepetidos2 :: [Integer] -> Bool
+hayRepetidos2 [] = False
+hayRepetidos2 a = pertenece (head a) (tail a) || hayRepetidos2 (tail a)
+
+
+--Genera una lista con los elementos menores que a tomados de b 
+menores :: Integer -> [Integer] -> [Integer]
+menores a b | b == [] = []
+menores a b | head b >= a = menores a (tail b)
+menores a b | head b < a = (head b):menores a (tail b)
+
+
+--Elimina a si aparece en la lista b
+quitar :: Integer -> [Integer] -> [Integer]
+quitar a b | b==[] = []
+--para quitar todos los repetidos
+--quitar a b | head b == a = quitar a (tail b)
+quitar a b | head b == a = tail b
+quitar a b | otherwise = (head b) : (quitar a (tail b))
+
+
+--Calcular el mayor elemento de una lista que no sea vacia
+maximo :: [Integer] -> Integer
+maximo a | length a == 1 = head a
+maximo a | (head a) > head (tail a) = maximo (head a : (tail (tail a)))
+maximo a | otherwise = maximo (tail a)
+
+
+--Calcula en base a el numero b
+enBase :: Integer -> Integer -> [Integer]
+enBase a b | div b a == 0 = mod b a:[]
+enBase a b | otherwise = enBase a (div b a)++[mod b a]
