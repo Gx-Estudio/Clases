@@ -1,0 +1,66 @@
+minimo :: [Integer] -> Integer
+minimo [x] = x
+minimo (x:xs) | x < head xs = minimo (x : (tail xs))
+minimo (x:xs) | otherwise = minimo xs
+
+--parte la lista despues del elemento 3
+--take 2 [1,3,6,5] -> [1,2]
+
+first  :: (a, b, c) -> a
+first (x, y, z) = x
+
+longitud  :: [a] -> Integer
+longitud  [] = 0
+longitud (x:[]) = 1
+longitud (x:y:[]) = 2
+longitud (x:y:z:[]) = 3
+longitud (_:_:_:xs) = 4 + longitud (tail xs)
+
+--iniciales ['j','e'] ['r','e']
+iniciales  :: [Char] -> [Char] -> [Char]
+iniciales  nombre  apellido = [n,a]
+		where	(n:_) = nombre
+			(a:_) = apellido
+
+--Racional (a,b) = a/b
+type  Racional = (Integer, Integer)
+suma ::  Racional  -> Racional  -> Racional
+suma (a, b) (c, d) = (a*d + b*c, b*d)
+
+-- fromIntegral deja de forzar a q sea entero
+type  Punto = (Integer, Integer)
+dist ::  Punto  -> Punto  -> Float
+dist (a,b) (c,d) = sqrt ((fromIntegral a - fromIntegral c)^2 + (fromIntegral b - fromIntegral d)^2)
+
+
+producto :: Racional -> Racional -> Racional
+producto (a,b) (c,d) = (a*c, b*d)
+
+igual :: Racional -> Racional -> Bool
+igual (a,b) (c,d) = a*d == b*c
+
+mayor :: Racional -> Racional -> Bool
+mayor (a,b) (c,d) = a*d > b*c
+
+---------------------------------------------------------------------------
+data  Dia = Lunes | Martes | Miercoles | Jueves | Viernes | Sabado | Domingo
+	deriving (Eq, Show)
+	
+esFinde :: Dia -> Bool
+esFinde Sabado = True
+esFinde Domingo = True
+esFinde _ = False
+
+diaHabil :: Dia -> Bool
+diaHabil Sabado = False
+diaHabil Domingo = False
+diaHabil _ = True
+
+diaAlgebra :: Dia -> Bool
+diaAlgebra x | x == Martes || x == Viernes = True
+diaAlgebra x | otherwise = False
+
+soloAlgebra :: [Dia] -> [Dia]
+soloAlgebra [] = []
+soloAlgebra (x:xs) | diaAlgebra x == True = x:soloAlgebra xs
+soloAlgebra (x:xs) | otherwise = soloAlgebra xs
