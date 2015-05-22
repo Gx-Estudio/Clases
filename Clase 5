@@ -67,7 +67,8 @@ deBase a b | otherwise = head b * a^length(tail b) + deBase a (tail b)
 --sumar dos listas iguales
 sumarlista :: [Integer] -> [Integer] -> [Integer]
 sumarlista a b | a==[] && b==[]= []
-sumarlista a b | otherwise = head a + head b : sumarlista (tail a) (tail b)
+sumarlista a b | head a + head b < 10 = head a + head b : sumarlista (tail a) (tail b)
+sumarlista a b | head a + head b >= 10 = head a + head b : sumarlista (tail a) (tail b)
 
 capicuaPara :: [Integer] -> [Integer]
 capicuaPara a | a == reverse a = a
