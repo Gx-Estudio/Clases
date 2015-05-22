@@ -57,3 +57,18 @@ maximo a | otherwise = maximo (tail a)
 enBase :: Integer -> Integer -> [Integer]
 enBase a b | div b a == 0 = mod b a:[]
 enBase a b | otherwise = enBase a (div b a)++[mod b a]
+
+--Calcula (b en base a) a (b en base 10)
+deBase :: Integer -> [Integer] -> Integer
+deBase a b | b==[] = 0
+deBase a b | otherwise = head b * a^length(tail b) + deBase a (tail b)
+
+--Toma un numero y realiza el proceso hasta conseguir su numero capicua asociado
+--sumar dos listas iguales
+sumarlista :: [Integer] -> [Integer] -> [Integer]
+sumarlista a b | a==[] && b==[]= []
+sumarlista a b | otherwise = head a + head b : sumarlista (tail a) (tail b)
+
+capicuaPara :: [Integer] -> [Integer]
+capicuaPara a | a == reverse a = a
+capicuaPara a | otherwise = sumarlista a (reverse a)
