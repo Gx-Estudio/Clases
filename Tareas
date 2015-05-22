@@ -23,3 +23,21 @@ sumaImparesCuadradosMenoresA n | n>0 = sum [1,3..truncate (sqrt n)]
 prodInterno :: [Float] -> [Float] -> Float
 prodInterno a b | length a == 0 && length b == 0 = 0
 prodInterno a b | otherwise = head a * head b + prodInterno (tail a) (tail b)
+
+
+--Clase5
+--Lista creciente
+esCreciente :: [Integer] -> Bool
+esCreciente a | length a == 1 = True
+esCreciente a | head a <= head(tail a) = esCreciente (tail a)
+esCreciente a | otherwise = False
+--Lista decreciente
+esDecreciente :: [Integer] -> Bool
+esDecreciente a | length a == 1 = True
+esDecreciente a | head a >= head(tail a) = esDecreciente (tail a)
+esDecreciente a | otherwise = False
+--Ver si una lista esta ordenada osea si la lista es (creciente o decreciente)
+estaOrdenada :: [Integer] -> Bool
+estaOrdenada a | a==[] = True
+estaOrdenada a | esDecreciente a || esCreciente a = True
+estaOrdenada a | otherwise = False
