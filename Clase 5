@@ -58,18 +58,27 @@ enBase :: Integer -> Integer -> [Integer]
 enBase a b | div b a == 0 = mod b a:[]
 enBase a b | otherwise = enBase a (div b a)++[mod b a]
 
+
 --Calcula (b en base a) a (b en base 10)
 deBase :: Integer -> [Integer] -> Integer
 deBase a b | b==[] = 0
 deBase a b | otherwise = head b * a^length(tail b) + deBase a (tail b)
 
+
 --Toma un numero y realiza el proceso hasta conseguir su numero capicua asociado
+
 --sumar dos listas iguales
+--agregar lo que se lleva
+sumarUno :: [Integer] -> [Integer]
+sumarUno a = init a ++ [last a + 1]
+--Sumar
 sumarlista :: [Integer] -> [Integer] -> [Integer]
 sumarlista a b | a==[] && b==[]= []
-sumarlista a b | head a + head b < 10 = head a + head b : sumarlista (tail a) (tail b)
-sumarlista a b | head a + head b >= 10 = head a + head b : sumarlista (tail a) (tail b)
+sumarlista a b | last a + last b >=10 && init a == [] && init b == [] = [1] ++ [last a + last b - 10]
+sumarlista a b | last a + last b <10 = sumarlista (init a) (init b) ++ [last a + last b]
+sumarlista a b | last a + last b >=10 = sumarlista (init a) (sumarUno (init b)) ++ [last a + last b - 10]
 
+--capicua asociado
 capicuaPara :: [Integer] -> [Integer]
 capicuaPara a | a == reverse a = a
-capicuaPara a | otherwise = sumarlista a (reverse a)
+capicuaPara a | otherwise = capicuaPara (sumarlista a (reverse a))
