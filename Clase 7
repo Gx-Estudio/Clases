@@ -1,0 +1,72 @@
+--Movimeinto
+data Direccion = Norte | Sur | Este | Oeste
+	deriving (Show, Eq)
+type Tortuga = (Pos, Direccion)
+type Pos = (Int, Int)
+
+arranca :: Tortuga
+arranca = ((0,0),Norte) 
+
+girarDerecha :: Tortuga -> Tortuga
+girarDerecha (pos,dir) | dir == Norte = (pos,Este) 
+girarDerecha (pos,dir) | dir == Este = (pos,Sur)
+girarDerecha (pos,dir) | dir == Sur = (pos,Oeste)
+girarDerecha (pos,dir) | dir == Oeste = (pos,Norte)
+
+girarIzquierda :: Tortuga -> Tortuga
+girarIzquierda (pos, dir) = girarDerecha (girarDerecha (girarDerecha (pos, dir)))
+
+avanzar :: Tortuga -> Int -> Tortuga
+avanzar ((x,y), dir) dist | dir == Norte  = ((x, y + dist), Norte)
+avanzar ((x,y), dir) dist | dir == Oeste  = ((x - dist, y), Oeste)
+avanzar ((x,y), dir) dist | dir == Sur  = ((x, y - dist), Sur)
+avanzar ((x,y), dir) dist | dir == Este  = ((x + dist, y), Este)
+
+
+--Figuras
+type Punto = (Float, Float)
+data Figura = Rectangulo Punto Punto | Circulo Punto Float | Triangulo Punto Punto Punto
+	deriving (Show, Eq)
+cirPi :: Figura
+cirPi = Circulo (0,0) pi
+
+tRectangulo :: Float -> Float -> Figura
+tRectangulo x y = Triangulo (0,0) (x,0) (0,y)
+
+--area (Rectangulo (0,0) (1,1)) -> 1.0
+area :: Figura -> Float
+area (Rectangulo (x1,y1) (x2,y2)) = (x2-x1) * (y2-y1)
+area (Circulo pos r) = 2 * pi * r
+area (Triangulo (x1,y1) (x2,y2) (x3,y3)) = ( x1*y2 + x2*y3 + x3*y1 - y2*x3 - y3*x1 - y1*x2 ) / 2
+
+
+--Primos
+divisoresHasta :: Integer -> Integer -> [Integer]
+divisoresHasta n m | m==1 = [1]
+divisoresHasta n m | mod n m == 0 = m:divisoresHasta n (m-1)
+divisoresHasta n m | otherwise = divisoresHasta n (m-1)
+
+divisores :: Integer -> [Integer]
+divisores n = divisoresHasta n n
+
+primo :: Integer -> Bool
+primo n = length (divisores n) == 2
+
+--Primos hasta n
+primosHasta :: Integer -> [Integer]
+primosHasta n | n == 1 = []
+primosHasta n | primo n = primosHasta (n-1) ++ [n]
+primosHasta n | not (primo n) = primosHasta (n-1)
+
+--Ver si hay primos entre [a,b]
+hayPrimosEntre :: Integer -> Integer -> Bool
+hayPrimosEntre a b | primosHasta a == primosHasta b = False
+hayPrimosEntre a b | otherwise = True
+hayPrimosEntre a b | 
+hayPrimosEntre a b = primo a || hayPrimosEntre (a+1) b
+
+bertrand :: Integer -> Bool
+bertrand n | n>=1 = hayPrimosEntre n (2*n)
+
+bGeneral :: Integer -> Integer -> Integer -> Integer -> Bool
+bGeneral d h a b | d<=n && n<=h = hayPrimosEntre (a*n) (b*n)
