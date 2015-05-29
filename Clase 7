@@ -1,4 +1,4 @@
---Movimeinto
+--Movimiento
 data Direccion = Norte | Sur | Este | Oeste
 	deriving (Show, Eq)
 type Tortuga = (Pos, Direccion)
