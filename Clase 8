@@ -1,0 +1,45 @@
+-- data = nuevos constructores
+-- type = agarra conocidas y los combina para crear nuevas
+-- (:) :: a -> [a] -> [a]
+--  arbol estrictamente binario y entero = cada nodo tiene 2 hijos (el valor de cada nodo es entero)
+
+--ABE = arbol binario entero
+data ABE = ArbVacio | Binario ABE Integer ABE deriving (Eq , Show )
+esVacio :: ABE -> Bool
+esVacio ArbVacio = True
+esVacio (Binario x y z) = False
+--hs-- esVacio ArbVacio
+--hs-- esVacio (Binario ArbVacio 10 ArbVacio)
+
+
+sumaNodos :: ABE -> Integer
+sumaNodos a | a == ArbVacio = 0
+sumaNodos (Binario x y z) | otherwise = y + sumaNodos x + sumaNodos z
+--hs-- sumaNodos (Binario (Binario ArbVacio 2 ArbVacio) 10 (Binario ArbVacio 3 ArbVacio))
+
+
+altura :: ABE -> Integer
+altura ArbVacio = 0
+altura (Binario x y z) = 1 + max (altura x) (altura z)
+
+
+pertenece :: Integer -> ABE -> Bool
+pertenece n ArbVacio = False
+pertenece n (Binario x y z) = n==y || pertenece n x || pertenece n z
+
+
+busqueda :: [Bool] -> ABE -> Integer
+busqueda l ArbVacio = undefined
+busqueda [] (Binario x y z) = y
+busqueda (True:l) (Binario x y z) = busqueda l z
+busqueda (False:l) (Binario x y z) = busqueda l x
+
+--NOta AB Mayuscula Constructor (t minuscula Variable)
+data AB t = Nil | Bin (AB t) t (AB t)
+
+vacio :: AB a -> Bool
+vacio Nil = True
+vacio (Bin x y z) = False
+
+-- "Ord a" que define eun orden mayor o menor
+--maximo :: Ord a => AB a -> a
