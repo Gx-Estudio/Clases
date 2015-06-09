@@ -1,0 +1,58 @@
+--------------
+--EJ. 1
+--------------
+
+--Importamos la libreria Data.Char que tenga orden
+import Data.Char
+
+--Evalua True si x = Cadena de texto, es minuscula
+esMin :: Char -> Bool
+esMin x = isLower x 
+
+----------------------------------------------------------------------------------
+--Permite convertir una minuscula en un numero entero en el rango[0,25] 
+letANat :: Char -> Int
+letANat x = ord x - 97
+
+--Inverso
+natALet :: Int -> Char
+natALet x =  chr (x+97)
+
+--Desplazo n posiciones l si (posicion de l)+n > 25, restamos 26 para regresar a la posicion 0 y continuar el conteo)
+desplazar :: Int -> Char -> Char
+desplazar n ' ' = ' '
+desplazar n l	| 0 <= ((letANat l) + mod n 25) = natALet ((letANat l) + mod n 25)
+
+
+
+desplazar2 :: Int -> Char -> Char
+desplazar2 n ' ' = ' '
+desplazar2 n l	| 0 <= letANat l + n = natALet ((letANat l) + n)
+				| letANat l + n < 0  = natALet ((letANat l) + n +26)
+----------------------------------------------------------------------------------------
+
+--Dada una Cadena retorna la cantidad de letras minusculas ne la misma
+cantMinusc :: String -> Integer
+cantMinusc [] = 0
+cantMinusc (x:xs)	| esMin x = 1 + cantMinusc xs
+					| otherwise = cantMinusc xs
+
+--Dado un l y una cadena cuenta la cantidad de veces que aparece l en la cadena
+contar :: Char -> String -> Int
+contar l [] = 0
+contar l (x:xs)	| x == l = 1 + (contar l xs)
+--contar l (x:xs)	| esMin x && x == l = 1 + (contar l xs)
+				| otherwise = contar l xs
+
+--------------
+--EJ. 2
+--------------
+
+--Codfica una cadena desplazandose n
+codificar :: Int -> String -> String
+codificar n [] = []
+codificar n (x:xs) = desplazar n x : codificar n xs
+
+decodificar :: Int -> String -> String
+decodificar n [] = []
+decodificar n (x:xs) = desplazar (letANat x - n + 26) x : decodificar n xs
