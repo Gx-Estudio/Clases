@@ -56,4 +56,4 @@ codificar n (x:xs) = desplazar n x : codificar n xs
 
 decodificar :: Int -> String -> String
 decodificar n [] = []
-decodificar n (x:xs) = desplazar (letANat x - n + 26) x : decodificar n xs
+decodificar n (x:xs) = desplazar (letANat x - n) x : decodificar n xs
