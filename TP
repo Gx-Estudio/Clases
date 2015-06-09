@@ -21,7 +21,8 @@ natALet x =  chr (x+97)
 --Desplazo n posiciones l si (posicion de l)+n > 25, restamos 26 para regresar a la posicion 0 y continuar el conteo)
 desplazar :: Int -> Char -> Char
 desplazar n ' ' = ' '
-desplazar n l	| 0 <= ((letANat l) + mod n 25) = natALet ((letANat l) + mod n 25)
+desplazar n l	| n < 0 = natALet ((letANat l) + mod n 25 + 1)
+				| otherwise = natALet ((letANat l) + mod n 25)
 
 
 
