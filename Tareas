@@ -41,3 +41,32 @@ estaOrdenada :: [Integer] -> Bool
 estaOrdenada a | a==[] = True
 estaOrdenada a | esDecreciente a || esCreciente a = True
 estaOrdenada a | otherwise = False
+
+--Clase 7
+--Factoriza un numero compuesto en sus primos
+--Primos
+divisoresHasta :: Integer -> Integer -> [Integer]
+divisoresHasta n m | m==1 = [1]
+divisoresHasta n m | mod n m == 0 = m:divisoresHasta n (m-1)
+divisoresHasta n m | otherwise = divisoresHasta n (m-1)
+
+divisores :: Integer -> [Integer]
+divisores n = divisoresHasta n n
+
+primo :: Integer -> Bool
+primo n = length (divisores n) == 2
+
+--Primos hasta n
+primosHasta :: Integer -> [Integer]
+primosHasta n | n == 1 = []
+primosHasta n | primo n = primosHasta (n-1) ++ [n]
+primosHasta n | not (primo n) = primosHasta (n-1)
+
+--Busca ultimo primo que divide a "n" de la lista "primosHasta n"
+busca :: Integer -> [Integer]
+busca n 
+
+
+factorizar :: Integer -> [Integer]
+factorizar 1 = []
+--factorizar n = busca n (primosHasta n)
