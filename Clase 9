@@ -1,0 +1,50 @@
+sumaproducida :: Integer -> ([Integer] -> Integer)
+sumaproducida n | n > 10 = sum
+sumaproducida n | otherwise = product
+
+f_rara :: Bool -> (Integer -> ([Integer] -> Integer))
+f_rara True = sumaproducida
+
+data Jugada = Piedra | Papel | Tijera | Spock | Lagarto deriving (Enum, Show)
+
+ganaA :: Jugada -> Jugada -> Bool
+ganaA Papel Piedra = True
+ganaA Tijera Papel = True
+ganaA Piedra Tijera = True
+-- los giones bajo representan otherwise porq no me interesa lo que haya 
+ganaA  _ _  = False
+
+juego e1 e2 regla | regla e1 e2 = e1
+juego e1 e2 regla | regla e2 e1 = e2
+juego e1 e2 regla | otherwise = error "Empate :("
+
+--Ejecutare en consola "juego Tijera Papel ganaA" -> Tijera
+
+ganaA' Papel Piedra = True
+ganaA' Tijera Papel = True
+ganaA' Piedra Tijera = True
+ganaA' Piedra Lagarto = True
+ganaA' Lagarto Spock = True
+ganaA' Spock Tijera = True
+ganaA' Tijera Lagarto = True
+ganaA' Lagarto Papel = True
+ganaA' Papel Spock = True
+ganaA' Spock Piedra = True
+ganaA' _ _ = False
+
+
+aplicar2Veces  :: (a -> a) -> a -> a
+aplicar2Veces f x = f (f x)
+--que hace "aplicar2Veces not True"
+--que hace "aplicar2Veces (not True)"
+
+
+--la funcion magia es igual a la funcion "map"
+magia :: (a -> b) -> [a] -> [b]
+magia _ [] = []
+magia f (x:xs) = f x : magia f xs
+--ejecutar "magia not [True, True, False, True]"
+--ejecutar "magia reverse [[1,2,3],[5,6,7]]"
+--ejecutar "magia id [1,2,3,4,5,6]"
+
+
